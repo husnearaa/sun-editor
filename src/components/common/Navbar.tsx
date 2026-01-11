@@ -4,7 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 import Link from "next/link";
-import { HiArrowLongRight } from "react-icons/hi2";
+// import { HiArrowLongRight } from "react-icons/hi2";
 
 
 
