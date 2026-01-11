@@ -13,22 +13,22 @@ export default function Navbar() {
   // const user =getUserInfo();
   // console.log("User Info:", user);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLoginLogout = () => {
-    if (isLoggedIn) {
-      // For now, just log the admin out by toggling the state
-      setIsLoggedIn(false);
-    } else {
-      // Optionally, redirect to login page or handle login logic here
-      setIsLoggedIn(true);
-    }
-  };
+//   const handleLoginLogout = () => {
+//     if (isLoggedIn) {
+//       // For now, just log the admin out by toggling the state
+//       setIsLoggedIn(false);
+//     } else {
+//       // Optionally, redirect to login page or handle login logic here
+//       setIsLoggedIn(true);
+//     }
+//   };
 
   const navLinks = [
     { href: "/", label: "Home  " },
@@ -39,10 +39,10 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50  text-[#262829] py-4">
-      <div className="container  bg-white mx-auto px-4 flex items-center justify-between rounded-lg">
+      <div className="container  bg-green-50 mx-auto px-4 py-6 flex items-center justify-between rounded-lg">
         {/* Logo */}
         <div className="flex items-center">
-            <h1>Custom Code </h1>
+            <h1 className="text-3xl font-medium">Custom Code </h1>
           {/* <Link href="/" className="flex items-center">
             <Image
               src={logo}
@@ -71,7 +71,7 @@ export default function Navbar() {
               </Link>
             ))}
             {/* Login Button */}
-            <div>
+            {/* <div>
               <Link href={isLoggedIn ? "#" : "/login"} passHref>
                 <button
                   onClick={handleLoginLogout}
@@ -82,7 +82,7 @@ export default function Navbar() {
                    <HiArrowLongRight />
                 </button>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
 
