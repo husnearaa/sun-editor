@@ -35,19 +35,20 @@ export default function Navbar() {
     { href: "/about", label: "About  " },
     { href: "/content", label: "Examples"},
     { href: "/text-editor", label: "TextEditor"},
+    { href: "/text-editor", label: "components"},
     { href: "/blog", label: "Blog  " },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-50  text-[#262829] py-4">
-      <div className="container  bg-green-50 mx-auto px-4 py-6 flex items-center justify-between rounded-lg">
+    <nav className="fixed top-0 left-0 w-full z-50  text-white pb-4">
+      <div className=" bg-transparent backdrop:blur-2xl mx-auto px-6 py-6 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
             <h1 className="text-3xl font-medium">Custom Code </h1>
           {/* <Link href="/" className="flex items-center">
             <Image
               src={logo}
-              alt="krspeech Logo"
+              alt="code Logo"
               width={1000}
               height={1000}
               className="rounded-full w-44 h-24 object-cover"
@@ -64,9 +65,9 @@ export default function Navbar() {
                 href={link.href}
                 className={`${
                   pathname === link.href
-                    ? " text-[#00adbb]"
-                    : " text-[#262829]"
-                } hover:text-[#00adbb]`}
+                    ? " text-green-400"
+                    : " text-white"
+                } hover:text-green-400 transition duration-300 ease-in-out`}
               >
                 {link.label}
               </Link>
