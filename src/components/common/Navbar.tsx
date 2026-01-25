@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaChevronDown } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import logo from '@/assets/code-icon.png'
@@ -10,6 +10,7 @@ import logo from '@/assets/code-icon.png'
 export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isComponentsHovered, setIsComponentsHovered] = useState(false);
   const pathname = usePathname();
 
   // Handle scroll effect
@@ -40,9 +41,20 @@ export default function Navbar() {
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
     { href: "/content", label: "Examples" },
-    { href: "/text-editor", label: "TextEditor" },
-    { href: "/text-editor", label: "components" },
     { href: "/blog", label: "Blog" },
+  ];
+
+  // Dropdown items for Components
+  const componentLinks = [
+    { href: "/text-editor", label: "TextEditor" },
+    { href: "/components/button", label: "Buttons" },
+    { href: "/components/card", label: "Cards" },
+    { href: "/components/form", label: "Forms" },
+    { href: "/components/navigation", label: "Navigation" },
+    { href: "/components/modal", label: "Modals" },
+    { href: "/components/table", label: "Tables" },
+    { href: "/components/typography", label: "Typography" },
+    { href: "/components/alert", label: "Alerts" },
   ];
 
   return (
@@ -82,7 +94,7 @@ export default function Navbar() {
         <div>
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
+            {navLinks.slice(0, 3).map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -97,6 +109,66 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            
+            {/* Components Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsComponentsHovered(true)}
+              onMouseLeave={() => setIsComponentsHovered(false)}
+            >
+              <button
+                className={`flex items-center gap-1 ${
+                  pathname.startsWith("/components/") || pathname === "/text-editor"
+                    ? "text-green-400 font-medium"
+                    : isScrolled 
+                      ? "text-white hover:text-green-300" 
+                      : "text-white hover:text-green-400"
+                } transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10 text-base font-medium`}
+              >
+                Components
+                <FaChevronDown className={`transition-transform duration-300 ${isComponentsHovered ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {/* Dropdown Menu */}
+              <div 
+                className={`absolute left-0 mt-2 w-64 bg-black/90 backdrop-blur-lg rounded-lg shadow-2xl border border-white/10 transition-all duration-300 ${
+                  isComponentsHovered 
+                    ? 'opacity-100 visible translate-y-0' 
+                    : 'opacity-0 invisible -translate-y-2'
+                }`}
+              >
+                <div className="p-2">
+                  {componentLinks.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={`flex items-center px-4 py-3 rounded-md transition-all duration-200 ${
+                        pathname === link.href
+                          ? "bg-green-500/20 text-green-300"
+                          : "text-white/80 hover:text-green-300 hover:bg-white/10"
+                      }`}
+                      onClick={() => setIsComponentsHovered(false)}
+                    >
+                      <span className="text-sm font-medium">{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            {/* Blog link */}
+            <Link
+              href="/blog"
+              className={`${
+                pathname === "/blog"
+                  ? "text-green-400 font-medium"
+                  : isScrolled 
+                    ? "text-white hover:text-green-300" 
+                    : "text-white hover:text-green-400"
+              } transition-colors duration-300 px-3 py-2 rounded-lg hover:bg-white/10 text-base font-medium`}
+            >
+              Blog
+            </Link>
           </div>
         </div>
 
@@ -157,6 +229,25 @@ export default function Navbar() {
                 {link.label}
               </Link>
             ))}
+            
+            {/* Components Dropdown for Mobile */}
+            <div className="space-y-2 mt-4">
+              <div className="text-white/90 font-medium px-4 text-lg mb-2">Components</div>
+              {componentLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`${
+                    pathname === link.href
+                      ? "bg-white/20 text-white border-l-4 border-green-400"
+                      : "text-white/80 hover:text-green-300"
+                  } hover:bg-white/10 py-3 px-8 rounded-lg transition-all duration-300 text-base font-medium`}
+                  onClick={() => setIsSidebarOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
 
           <div className="mt-8 pt-6 border-t border-white/30">
